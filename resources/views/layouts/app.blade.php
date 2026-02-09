@@ -10,142 +10,233 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #fafafa;
+            color: #1a1a1a;
             line-height: 1.6;
         }
+        
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
+        
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 25px 0;
             margin-bottom: 30px;
+            background: white;
         }
+        
         header h1 {
-            text-align: center;
-            font-size: 2rem;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #000;
         }
+        
         nav {
-            text-align: center;
-            margin-top: 10px;
+            display: flex;
+            gap: 20px;
         }
+        
         nav a {
-            color: white;
+            color: #1a1a1a;
             text-decoration: none;
-            margin: 0 15px;
+            font-size: 14px;
             font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.15s ease;
         }
+        
         nav a:hover {
-            text-decoration: underline;
+            background-color: #f0f0f0;
         }
+        
         .card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
             padding: 25px;
             margin-bottom: 20px;
         }
+        
+        .card h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
         .btn {
             display: inline-block;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+            padding: 8px 16px;
+            border: 1px solid #d5d5d5;
+            border-radius: 4px;
             cursor: pointer;
             text-decoration: none;
             font-size: 14px;
-            margin-right: 5px;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.15s ease;
+            background: white;
+            color: #1a1a1a;
         }
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-        .btn-warning {
-            background: #ffc107;
-            color: #333;
-        }
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
+        
         .btn:hover {
-            opacity: 0.9;
+            background: #f5f5f5;
+            border-color: #999;
         }
+        
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+            border-color: #0066cc;
+        }
+        
+        .btn-primary:hover {
+            background: #0052a3;
+            border-color: #0052a3;
+        }
+        
+        .btn-success {
+            background: #059669;
+            color: white;
+            border-color: #059669;
+        }
+        
+        .btn-success:hover {
+            background: #047857;
+            border-color: #047857;
+        }
+        
+        .btn-warning {
+            background: #ca8a04;
+            color: white;
+            border-color: #ca8a04;
+        }
+        
+        .btn-warning:hover {
+            background: #b89704;
+            border-color: #b89704;
+        }
+        
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+        
+        .btn-danger:hover {
+            background: #b91c1c;
+            border-color: #b91c1c;
+        }
+        
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
+        
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #1a1a1a;
+            font-size: 14px;
         }
+        
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 10px 12px;
+            border: 1px solid #d5d5d5;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.15s ease;
         }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        
         .form-group textarea {
-            height: 100px;
+            height: 120px;
             resize: vertical;
         }
+        
         .alert {
-            padding: 15px;
-            border-radius: 5px;
+            padding: 12px 16px;
+            border-radius: 4px;
             margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid;
         }
+        
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #f0fdf4;
+            color: #166534;
+            border-color: #059669;
         }
+        
         .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: #dc2626;
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
         }
+        
         table th, table td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 14px;
         }
+        
         table th {
-            background: #f8f9fa;
+            background: #fafafa;
             font-weight: 600;
+            color: #1a1a1a;
         }
+        
         table tr:hover {
-            background: #f8f9fa;
+            background: #f8f8f8;
         }
+        
         .actions {
             white-space: nowrap;
         }
+        
+        .actions .btn {
+            margin-right: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
+            border-top: 1px solid #e5e5e5;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>📚 Book List</h1>
+            <h1>Book List</h1>
             <nav>
                 <a href="{{ route('books.index') }}">All Books</a>
                 <a href="{{ route('books.create') }}">Add New Book</a>

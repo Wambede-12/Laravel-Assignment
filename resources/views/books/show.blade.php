@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h2 style="margin-bottom: 20px;">📖 {{ $book->title }}</h2>
+        <h2>{{ $book->title }}</h2>
 
         <table style="margin-bottom: 20px;">
             <tr>

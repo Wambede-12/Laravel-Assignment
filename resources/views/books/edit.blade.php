@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h2 style="margin-bottom: 20px;">✏️ Edit Book</h2>
+        <h2>Edit Book</h2>
 
         @if($errors->any())
             <div class="alert alert-danger">

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h2 style="margin-bottom: 20px;">📖 All Books</h2>
+        <h2>All Books</h2>
         
         @if(session('success'))
             <div class="alert alert-success">
@@ -10,7 +10,9 @@
             </div>
         @endif
 
-        <a href="{{ route('books.create') }}" class="btn btn-success" style="margin-bottom: 20px;">+ Add New Book</a>
+        <div style="margin-bottom: 20px;">
+            <a href="{{ route('books.create') }}" class="btn btn-success">Add New Book</a>
+        </div>
 
         @if($books->count() > 0)
             <table>
@@ -44,7 +46,7 @@
                 </tbody>
             </table>
         @else
-            <p style="text-align: center; color: #666; padding: 40px;">No books found. <a href="{{ route('books.create') }}">Add your first book!</a></p>
+            <p style="text-align: center; color: #999; padding: 40px;">No books found. <a href="{{ route('books.create') }}">Add your first book</a></p>
         @endif
     </div>
 @endsection
