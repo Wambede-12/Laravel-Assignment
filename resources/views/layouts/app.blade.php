@@ -41,6 +41,7 @@
         nav {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
         
         nav a {
@@ -136,6 +137,17 @@
             border-color: #b91c1c;
         }
         
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+            border-color: #6b7280;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+            border-color: #4b5563;
+        }
+        
         .form-group {
             margin-bottom: 18px;
         }
@@ -156,6 +168,18 @@
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
+            transition: border-color 0.15s ease;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d5d5d5;
+            border-radius: 4px;
+            font-size: 14px;
             transition: border-color 0.15s ease;
         }
         
@@ -236,10 +260,24 @@
 <body>
     <header>
         <div class="container">
-            <h1>Book List</h1>
+            <h1>📚 Book Management System</h1>
             <nav>
-                <a href="{{ route('books.index') }}">All Books</a>
-                <a href="{{ route('books.create') }}">Add New Book</a>
+                @auth
+                    <a href="{{ route('books.index') }}">My Books</a>
+                    <a href="{{ route('books.create') }}">+ Add New Book</a>
+                    <div style="flex: 1;"></div>
+                    <span style="padding: 8px 12px; color: #666;">Welcome, <strong>{{ Auth::user()->name }}</strong></span>
+                    @if(Auth::user()->isAdmin())
+                        <span style="padding: 4px 8px; background: #fbbf24; color: #000; border-radius: 3px; font-weight: 600; font-size: 12px;">ADMIN</span>
+                    @endif
+                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn" style="padding: 8px 12px; font-weight: 500;">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                @endauth
             </nav>
         </div>
     </header>

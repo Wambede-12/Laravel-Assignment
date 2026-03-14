@@ -4,16 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource with search functionality.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
-        return view('books.index', compact('books'));
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $query = Book::query();
+        $search = $request->input('search');
+
+        // Filter by search term
+        if ($search) {
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%");
+        }
+
+        // Admin can see all books, users see only their own
+        if (!Auth::user()->isAdmin()) {
+            $query->where('user_id', Auth::id());
+        }
+
+        $books = $query->paginate(10);
+
+        return view('books.index', compact('books', 'search'));
     }
 
     /**
@@ -21,6 +41,9 @@ class BookController extends Controller
      */
     public function create()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         return view('books.create');
     }
 
@@ -29,12 +52,25 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
+            'year' => 'nullable|integer|min:1000|max:2100',
+            'description' => 'nullable|string',
         ]);
 
-        Book::create($request->all());
+        Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'year' => $request->year,
+            'description' => $request->description,
+            'user_id' => Auth::id(),
+        ]);
+
         return redirect()->route('books.index')->with('success', 'Book added successfully!');
     }
 
@@ -43,6 +79,10 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        $this->authorizeBook($book);
         return view('books.show', compact('book'));
     }
 
@@ -51,6 +91,10 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        $this->authorizeBook($book);
         return view('books.edit', compact('book'));
     }
 
@@ -59,9 +103,16 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        $this->authorizeBook($book);
+
         $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
+            'year' => 'nullable|integer|min:1000|max:2100',
+            'description' => 'nullable|string',
         ]);
 
         $book->update($request->all());
@@ -73,7 +124,21 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        $this->authorizeBook($book);
         $book->delete();
         return redirect()->route('books.index')->with('success', 'Book deleted successfully!');
+    }
+
+    /**
+     * Check if the authenticated user can access the book.
+     */
+    private function authorizeBook(Book $book)
+    {
+        if (!Auth::user()->isAdmin() && $book->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized access to this book.');
+        }
     }
 }
